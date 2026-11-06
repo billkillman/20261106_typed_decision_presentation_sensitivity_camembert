@@ -1,0 +1,142 @@
+{
+ "primary_metric": "permutation_flip_rate",
+ "direction": "min",
+ "metric_labels": {
+  "permutation_flip_rate": "taux de changement sous permutation",
+  "accuracy": "accuracy",
+  "macro_f1": "macro-F1",
+  "expected_calibration_error": "ECE (calibration)",
+  "top10_candidate_recall": "rappel du top-10 (plafond)",
+  "invalid_output_rate": "sorties invalides",
+  "accuracy_min_presentation": "accuracy, pire présentation",
+  "accuracy_max_presentation": "accuracy, meilleure présentation"
+ },
+ "dataset": {
+  "name": "DeepPavlov/banking77_fr",
+  "config": "default",
+  "split": "test",
+  "n_examples": 500
+ },
+ "approaches": [
+  {
+   "name": "CamemBERT-base fine-tuné",
+   "role": "reference",
+   "metrics": {
+    "permutation_flip_rate": 0.0,
+    "accuracy": 0.676,
+    "macro_f1": 0.6172938110549491,
+    "expected_calibration_error": 0.6003581600412725,
+    "top10_candidate_recall": 0.954,
+    "invalid_output_rate": null,
+    "accuracy_min_presentation": 0.544,
+    "accuracy_max_presentation": 0.676
+   },
+   "ci95": {
+    "accuracy": [
+     0.636,
+     0.714
+    ],
+    "macro_f1": [
+     0.5720673502157835,
+     0.6411651962235443
+    ],
+    "permutation_flip_rate": [
+     0.0,
+     0.0
+    ],
+    "expected_calibration_error": [
+     0.5598319100923836,
+     0.6375507082939148
+    ],
+    "top10_candidate_recall": [
+     0.934,
+     0.97
+    ]
+   },
+   "latency_ms": {
+    "p50": 12.55,
+    "p95": 13.58,
+    "n": 50
+   },
+   "notes": "3 époques, lr 3e-05, lots de 32, plafond 96 tokens, 9003 textes d'entraînement ; changement mesuré en relançant l'inférence sous chaque ordre (meilleur candidat affiché) ; sorties invalides sans objet."
+  },
+  {
+   "name": "Décideur typé (Qwen/Qwen3-1.7B)",
+   "role": "new",
+   "metrics": {
+    "permutation_flip_rate": 0.534,
+    "accuracy": 0.49,
+    "macro_f1": 0.47849657177372046,
+    "expected_calibration_error": 0.47395043063163766,
+    "top10_candidate_recall": 0.954,
+    "invalid_output_rate": 0.0,
+    "accuracy_min_presentation": 0.436,
+    "accuracy_max_presentation": 0.652
+   },
+   "ci95": {
+    "accuracy": [
+     0.444,
+     0.536
+    ],
+    "macro_f1": [
+     0.41760012497917276,
+     0.5026915887082262
+    ],
+    "permutation_flip_rate": [
+     0.488,
+     0.576
+    ],
+    "top10_candidate_recall": [
+     0.934,
+     0.97
+    ],
+    "invalid_output_rate": [
+     0.0,
+     0.0
+    ],
+    "expected_calibration_error": [
+     0.43132630115747456,
+     0.5184059556126595
+    ]
+   },
+   "latency_ms": {
+    "p50": 55.41,
+    "p95": 79.08,
+    "n": 2500
+   },
+   "notes": "Top-10 de CamemBERT comme options ; présentations ['rank', 'reversed', 'random', 'digits', 'neutral_note'] ; 500 exemples évalués ; contrôle positif 0.86 ; McNemar p = 5.71e-09 ; modèle = Qwen/Qwen3-1.7B, classe = Qwen3ForCausalLM, dtype = torch.float16, attention = sdpa, transformers = 5.22.0, torch = 2.11.0+cu130, device = cuda."
+  }
+ ],
+ "phase": "public",
+ "scale": "full",
+ "seed": 42,
+ "date": "2026-11-06T03:00:48+00:00",
+ "environment": {
+  "python": "3.13.16",
+  "system": "Linux-6.6.159+-x86_64-with-glibc2.39",
+  "cpu": 2,
+  "ram_gb": 12.7,
+  "device": "cuda",
+  "gpu": {
+   "name": "Tesla T4",
+   "memory_gb": 14.6
+  },
+  "scale": "full",
+  "versions": {
+   "torch": "2.11.0+cu130",
+   "transformers": "5.22.0",
+   "datasets": "4.8.5",
+   "sentence-transformers": "5.7.0",
+   "scikit-learn": "1.6.1",
+   "numpy": "2.4.6",
+   "pandas": "2.2.3",
+   "openai": "2.54.0",
+   "xgboost": "3.4.1"
+  }
+ },
+ "service_calls": {
+  "n": 0,
+  "failures": 0,
+  "seconds": 0
+ }
+}

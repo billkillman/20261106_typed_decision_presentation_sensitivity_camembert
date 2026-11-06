@@ -1,0 +1,139 @@
+{
+ "primary_metric": "permutation_flip_rate",
+ "direction": "min",
+ "metric_labels": {
+  "permutation_flip_rate": "taux de changement sous permutation",
+  "accuracy": "accuracy",
+  "macro_f1": "macro-F1",
+  "expected_calibration_error": "ECE (calibration)",
+  "top10_candidate_recall": "rappel du top-10 (plafond)",
+  "invalid_output_rate": "sorties invalides",
+  "accuracy_min_presentation": "accuracy, pire présentation",
+  "accuracy_max_presentation": "accuracy, meilleure présentation"
+ },
+ "dataset": {
+  "name": "DeepPavlov/banking77_fr",
+  "config": "default",
+  "split": "test",
+  "n_examples": 150
+ },
+ "approaches": [
+  {
+   "name": "CamemBERT-base fine-tuné",
+   "role": "reference",
+   "metrics": {
+    "permutation_flip_rate": 0.0,
+    "accuracy": 0.17333333333333334,
+    "macro_f1": 0.15037296037296038,
+    "expected_calibration_error": 0.15187231408432128,
+    "top10_candidate_recall": 0.7,
+    "invalid_output_rate": null,
+    "accuracy_min_presentation": 0.17333333333333334,
+    "accuracy_max_presentation": 0.17333333333333334
+   },
+   "ci95": {
+    "accuracy": [
+     0.11333333333333333,
+     0.23333333333333334
+    ],
+    "macro_f1": [
+     0.09594594594594595,
+     0.18680138969994042
+    ],
+    "permutation_flip_rate": [
+     0.0,
+     0.0
+    ],
+    "expected_calibration_error": [
+     0.09200494522228836,
+     0.21228201864287258
+    ],
+    "top10_candidate_recall": [
+     0.6266666666666667,
+     0.7733333333333333
+    ]
+   },
+   "latency_ms": {
+    "p50": 48.48,
+    "p95": 62.65,
+    "n": 50
+   },
+   "notes": "2 époques, lr 0.0001, lots de 16, plafond 128 tokens, 720 textes d'entraînement ; changement mesuré en relançant l'inférence sous chaque ordre (meilleur candidat affiché) ; sorties invalides sans objet."
+  },
+  {
+   "name": "Décideur typé (Qwen/Qwen3-0.6B)",
+   "role": "new",
+   "metrics": {
+    "permutation_flip_rate": 0.78,
+    "accuracy": 0.26666666666666666,
+    "macro_f1": 0.26559218559218556,
+    "expected_calibration_error": 0.5407289508978526,
+    "top10_candidate_recall": 0.7,
+    "invalid_output_rate": 0.0,
+    "accuracy_min_presentation": 0.26666666666666666,
+    "accuracy_max_presentation": 0.32666666666666666
+   },
+   "ci95": {
+    "accuracy": [
+     0.19333333333333333,
+     0.3333333333333333
+    ],
+    "macro_f1": [
+     0.18842245797263096,
+     0.30804506728876474
+    ],
+    "permutation_flip_rate": [
+     0.7133333333333334,
+     0.84
+    ],
+    "top10_candidate_recall": [
+     0.6266666666666667,
+     0.7733333333333333
+    ],
+    "invalid_output_rate": [
+     0.0,
+     0.0
+    ],
+    "expected_calibration_error": [
+     0.47295868476231895,
+     0.6135645792881648
+    ]
+   },
+   "latency_ms": {
+    "p50": 778.11,
+    "p95": 885.05,
+    "n": 450
+   },
+   "notes": "Top-10 de CamemBERT comme options ; présentations ['rank', 'reversed', 'random'] ; 150 exemples évalués ; contrôle positif 0.60 ; McNemar p = 0.00661 ; modèle = Qwen/Qwen3-0.6B, classe = Qwen3ForCausalLM, dtype = torch.float32, attention = sdpa, transformers = 5.22.1, torch = 2.15.0+cpu, device = cpu."
+  }
+ ],
+ "phase": "public",
+ "scale": "reduced",
+ "seed": 42,
+ "date": "2026-11-06T02:51:25+00:00",
+ "environment": {
+  "python": "3.12.16",
+  "system": "Linux-7.0.0-1019-azure-x86_64-with-glibc2.41",
+  "cpu": 4,
+  "ram_gb": 15.6,
+  "device": "cpu",
+  "gpu": null,
+  "scale": "reduced",
+  "versions": {
+   "torch": "2.15.0+cpu",
+   "transformers": "5.22.1",
+   "datasets": "5.1.0",
+   "sentence-transformers": "6.2.0",
+   "scikit-learn": "1.9.1",
+   "numpy": "2.5.4",
+   "pandas": "3.1.1",
+   "openai": "3.46.0",
+   "xgboost": "3.4.1"
+  }
+ },
+ "service_calls": {
+  "n": 0,
+  "failures": 0,
+  "seconds": 0
+ }
+}
